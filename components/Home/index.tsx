@@ -1,77 +1,81 @@
 "use client";
 
-import { useSignIn } from "@/hooks/use-sign-in";
-import Link from "next/link";
+import useXMTPConversation from "@/hooks/use-xmtp-conversation";
 import { useState } from "react";
 
 export default function Home() {
-  const { signIn, isLoading, isSignedIn, logout } = useSignIn();
-  const [testResult, setTestResult] = useState<string>("");
+  const [messages, setMessages] = useState<string[]>([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [currentConversation, setCurrentConversation] = useState<string | null>(
+    null
+  );
 
-  const testAuth = async () => {
+  const { conversations, createConversation, syncConversations, sendMessage } =
+    useXMTPConversation();
+
+  const startChat = async () => {
     try {
-      const res = await fetch("/api/test", {
-        credentials: "include",
-      });
-      const data = await res.json();
-
-      if (!res.ok) {
-        setTestResult(`Auth test failed: ${data.error}`);
-        return;
-      }
-
-      setTestResult(`Auth test succeeded! Server response: ${data.message}`);
+      const newConv = await createConversation([
+        "0x1358155a15930f89eBc787a34Eb4ccfd9720bC62",
+      ]);
+      setCurrentConversation(newConv.id);
     } catch (error) {
-      setTestResult(
-        "Auth test failed: " +
-          (error instanceof Error ? error.message : "Unknown error")
-      );
+      console.error("Failed to start chat:", error);
+    }
+  };
+
+  const handleSendMessage = async () => {
+    if (!currentConversation || !newMessage.trim()) return;
+
+    try {
+      await sendMessage(currentConversation, newMessage);
+      setMessages([...messages, newMessage]);
+      setNewMessage("");
+    } catch (error) {
+      console.error("Failed to send message:", error);
     }
   };
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center p-4">
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Welcome</h1>
-        <p className="text-lg text-muted-foreground">
-          {isSignedIn ? "You are signed in!" : "Sign in to get started"}
-        </p>
+        <h1 className="text-4xl font-bold">XMTP Chat</h1>
 
-        {!isSignedIn ? (
+        {!currentConversation ? (
           <button
-            onClick={signIn}
-            disabled={isLoading}
-            className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+            onClick={startChat}
+            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-200"
           >
-            {isLoading ? "Signing in..." : "Sign in"}
+            Start Chat
           </button>
         ) : (
-          <div className="space-y-4">
-            <button
-              onClick={testAuth}
-              className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition-colors duration-200"
-            >
-              Test Authentication
-            </button>
-
-            <button
-              onClick={logout}
-              className="px-6 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-colors duration-200 block w-full"
-            >
-              Sign Out
-            </button>
-
-            {testResult && (
-              <div className="mt-4 p-4 rounded-lg bg-gray-100 text-black text-sm">
-                {testResult}
-              </div>
-            )}
+          <div className="w-full max-w-md space-y-4">
+            <div className="h-96 overflow-y-auto border rounded-lg p-4 bg-gray-50">
+              {messages.map((msg, index) => (
+                <div key={index} className="mb-2 p-2 bg-white rounded shadow">
+                  {msg}
+                </div>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                placeholder="Type a message..."
+                className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              <button
+                onClick={handleSendMessage}
+                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Send
+              </button>
+            </div>
           </div>
         )}
       </div>
-      <Link href="/presave" className="text-lg text-muted-foreground mt-4">
-        Go to Presave
-      </Link>
     </div>
   );
 }

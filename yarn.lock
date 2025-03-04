@@ -2228,6 +2228,18 @@
     "@worldcoin/idkit-core" "^1.3.0"
     abitype "^1.0.6"
 
+"@xmtp/browser-sdk@^0.0.21":
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/@xmtp/browser-sdk/-/browser-sdk-0.0.21.tgz#04d7e28607f6eb7cbfa75d21c7d469ddd64cd94c"
+  integrity sha512-qkugbnijDmA1g1VjgMcstnVXnPeVi81eSLa1FmeZHCF9HMASIqBDazhWg0rst3jaZGJVSIKdrP+Q/sJ0BT+39Q==
+  dependencies:
+    "@xmtp/content-type-group-updated" "^2.0.0"
+    "@xmtp/content-type-primitives" "^2.0.0"
+    "@xmtp/content-type-text" "^2.0.0"
+    "@xmtp/proto" "^3.72.3"
+    "@xmtp/wasm-bindings" "^0.0.16"
+    uuid "^11.0.3"
+
 "@xmtp/consent-proof-signature@^0.1.3":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@xmtp/consent-proof-signature/-/consent-proof-signature-0.1.4.tgz#869bee1d3c74f05748b1c3992d8782899a175050"
@@ -2236,10 +2248,25 @@
     "@xmtp/proto" "^3.72.0"
     long "^5.2.3"
 
+"@xmtp/content-type-group-updated@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@xmtp/content-type-group-updated/-/content-type-group-updated-2.0.0.tgz#80473cc4bbca990cfe57600de9e5f23cd3aa6b49"
+  integrity sha512-gxYM4gM2IuKXpOwDcu6+RS7tkUMX6VStgdzFq8ruo3GVLZ03mwb9zjMNVhFwyRcdx6mNSDOTV01y+5P8aslkRg==
+  dependencies:
+    "@xmtp/content-type-primitives" "^2.0.0"
+    "@xmtp/proto" "^3.72.0"
+
 "@xmtp/content-type-primitives@^1.0.1", "@xmtp/content-type-primitives@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@xmtp/content-type-primitives/-/content-type-primitives-1.0.3.tgz#e137cfc34bbd991ec0986356997f338df8a02e3d"
   integrity sha512-NJUsar5fXkPnlgXZY7oZkctPjmGBpRsp1iFtWuiVMcpQ8P7uh1MYLdc3IhAMCqRSFw5n6UBrqUL6d7fjaoLBEA==
+  dependencies:
+    "@xmtp/proto" "^3.72.0"
+
+"@xmtp/content-type-primitives@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@xmtp/content-type-primitives/-/content-type-primitives-2.0.0.tgz#699abb865fd6a608a3ee8d613596128cdbd9fec1"
+  integrity sha512-ZutFl+dv9jZgGdRDuZZuJj9XNhq1RfSiCryX25HGs/3rVS3FYfVc3y26iV4jdSN2UALCkznXFuD/GXv5eZSN/w==
   dependencies:
     "@xmtp/proto" "^3.72.0"
 
@@ -2249,6 +2276,13 @@
   integrity sha512-NzPWtccKc4CPHZi+edlZhTZAuFU91iB5rHR3UboqFxaGJ6UTTCsMmFRdvkoVpZ+HB18cAgPoVOLClfykI1O4pQ==
   dependencies:
     "@xmtp/content-type-primitives" "^1.0.3"
+
+"@xmtp/content-type-text@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@xmtp/content-type-text/-/content-type-text-2.0.0.tgz#4228cad4c8431b709b02d36f4b62bf8c3c7694fd"
+  integrity sha512-WcFMhjubA6E8j42L6XIsLipDo5AP70TdS2taEH2Ry6V1NeZf8+cjHVrwh60fZeGnrcLWy/tDV4QyXUsD3j045w==
+  dependencies:
+    "@xmtp/content-type-primitives" "^2.0.0"
 
 "@xmtp/proto@^3.62.1", "@xmtp/proto@^3.72.0":
   version "3.72.4"
@@ -2260,10 +2294,25 @@
     rxjs "^7.8.0"
     undici "^5.8.1"
 
+"@xmtp/proto@^3.72.3":
+  version "3.76.0"
+  resolved "https://registry.yarnpkg.com/@xmtp/proto/-/proto-3.76.0.tgz#88a988bd7eaee3594af0fb1ae2c7346deb3a9e60"
+  integrity sha512-ZwvGX5HNj4pL0gESwSoxSmk/ct0uV4JfSYyWpBFqMWpV7+uIwLy80zDOxZc8XYW+DxNAUogR6sdrLMmtDFFkjQ==
+  dependencies:
+    long "^5.2.0"
+    protobufjs "^7.0.0"
+    rxjs "^7.8.0"
+    undici "^5.8.1"
+
 "@xmtp/user-preferences-bindings-wasm@^0.3.6":
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/@xmtp/user-preferences-bindings-wasm/-/user-preferences-bindings-wasm-0.3.6.tgz#4ca58dca940574483caa8cbd4d9c609577b1e0f1"
   integrity sha512-ANi6ikrO6YBaK978sMuEEnpREvFQQnMVaNdlviaLzmc07u4Of4s/VLNnavl4qTb4F4cvwSiBWou0wSYIE5SWYg==
+
+"@xmtp/wasm-bindings@^0.0.16":
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/@xmtp/wasm-bindings/-/wasm-bindings-0.0.16.tgz#ae6418790e7a8790879e6e98e8815eac4be4d3f5"
+  integrity sha512-QlfaJv/HEVXfy0cKNWoWLmi0YraktOupT9xsgiiltDN7WwA83fJAKhhtiIZ/2QzBZ894HM3NGigtmcAV85z+sg==
 
 "@xmtp/xmtp-js@^12.0.0":
   version "12.1.0"
@@ -6419,6 +6468,11 @@ util@^0.12.4:
     is-generator-function "^1.0.7"
     is-typed-array "^1.1.3"
     which-typed-array "^1.1.2"
+
+uuid@^11.0.3:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-11.1.0.tgz#9549028be1753bb934fc96e2bca09bb4105ae912"
+  integrity sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==
 
 uuid@^8.3.2:
   version "8.3.2"

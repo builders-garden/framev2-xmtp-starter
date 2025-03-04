@@ -4,10 +4,6 @@ import { z } from "zod";
 // https://env.t3.gg/docs/nextjs
 export const env = createEnv({
   server: {
-    APP_ID: z.string().min(1),
-    DEV_PORTAL_API_KEY: z.string().min(1),
-    WLD_CLIENT_ID: z.string().min(1),
-    WLD_CLIENT_SECRET: z.string().min(1),
     NEYNAR_API_KEY: z.string().min(1),
     JWT_SECRET: z.string().min(1),
   },
